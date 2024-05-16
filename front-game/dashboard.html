@@ -33,7 +33,7 @@
             methods: {
                 async fetchCharacterData() {
                     try {
-                        const response = await fetch('https://trabalho.vercel.app/characters'); // Substitua pela sua rota da API
+                        const response = await fetch('https://tarefa2-azure.vercel.app'); // Substitua pela sua rota da API
                         const data = await response.json();
                         console.log(data)
                         this.heroiVida = data.heroi.vida;
