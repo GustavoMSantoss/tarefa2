@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarefa Login</title>
+    <link rel="stylesheet" href="login.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+
+<body class="gradiente">
+
+    <div id="app" >
+        <div class="login-form">
+        <label>Nome do usuário</label>
+        <input type="text" id="nomedousuario" v-model="nomedousuario">
+        <label>Senha</label>
+        <input type="password" id="password" v-model="password">
+        <button @click="autenticar">Login</button>
+        <button @click="exibirFormulario = true">Sing-In</button>
+        
+    </div>
+    <div v-if="exibirErro" class="mensagem-validacao">
+        Usuario não cadastrado
+    </div>
+
+        
+        <div v-if="exibirFormulario" class="formulario">
+            <h2>Cadastro</h2>
+            <label for="usuario">Usuario:</label>
+            <input type="text" id="usuario" v-model="novoUsuario.usuario">
+            <label for="senhaCadastro">Senha:</label>
+            <input type="password" id="senha" v-model="novoUsuario.senha">
+            <button @click="cadastrar">Cadastrar</button>
+            
+    </div>
+
+        <div v-if="cadastroRealizado" class="mensagem-cadastro">
+            Cadastro realizado!
+        </div>
+
+    </div>
+    
+</div>
+
+    <script src="login.js"></script>
+
+    
+</body>
+</html>
