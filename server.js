@@ -9,7 +9,7 @@ const PORT = 3000;
 // Configuração do banco de dados
 const config = {
     user: 'morerao',
-    password: 'Gustavo1210.',
+    password: 'Gustavo1210',
     server: 'morerao-server.database.windows.net',
     database: 'projeto1',
     options: {
