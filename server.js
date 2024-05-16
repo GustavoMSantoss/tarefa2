@@ -75,7 +75,7 @@ app.post('/inserirUsuario', async (req, res) => {
         await sql.connect(config);
         const request = new sql.Request();
         await request.query(`
-      MERGE INTO Usuario AS target
+      MERGE INTO usuario AS target
       USING (VALUES ('${usuario}', '${senha}')) AS source (usuario, senha)
       ON target.usuario = source.usuario
       WHEN MATCHED THEN
