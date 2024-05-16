@@ -8,10 +8,10 @@ const PORT = 3000;
 
 // Configuração do banco de dados
 const config = {
-    user: 'Wilton.Monteiro',
-    password: 'Will*1285',
-    server: 'conectaserver.database.windows.net',
-    database: 'conectaserver',
+    user: 'morerao',
+    password: 'Gustavo1210',
+    server: 'morerao-server.database.windows.net',
+    database: 'heroivilao',
     options: {
         encrypt: true // Dependendo da configuração do seu servidor SQL Server
     }
