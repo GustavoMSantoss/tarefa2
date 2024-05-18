@@ -38,3 +38,14 @@ Jogue o jogo, e os dados serão salvos no banco de dados.
 Acesse o dashboard para visualizar a vida atual do Herói e do Vilão, bem como a sequência de ações realizadas por cada um.
 
 Para mais informações, entre em contato com [gustavo.santos320@fatec.sp.com.br].
+
+
+![image](https://github.com/GustavoMSantoss/tarefa2/assets/141965903/eab9aa94-0b75-4296-863f-4993a343d535)
+
+
+![image](https://github.com/GustavoMSantoss/tarefa2/assets/141965903/6b68d926-83db-4320-8d1a-5f8e9658add3)
+
+
+![image](https://github.com/GustavoMSantoss/tarefa2/assets/141965903/328617fa-8bd9-4896-8eba-72106a7761d5)
+
+
