@@ -1,10 +1,21 @@
+:root {
+    --cor-fundo: #e1ecf1;
+    --cor-primaria: #1d509f;
+    --cor-primaria-hover: #1a355e;
+    --cor-texto-botao: whitesmoke;
+    --cor-barra-vida: #4CAF50;
+    --cor-fundo-personagem: white;
+    --cor-borda-personagem: #1d509f;
+    --cor-sprite: #ddd;
+}
+
 body, html {
     height: 100%;
     margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e1ecf1;
+    background-color: var(--cor-fundo);
 }
 
 #app {
@@ -14,8 +25,8 @@ body, html {
 }
 
 .personagem {
-    background-color: white;
-    border: 2px solid #1d509f;
+    background-color: var(--cor-fundo-personagem);
+    border: 2px solid var(--cor-borda-personagem);
     margin-bottom: 20px;
     padding: 10px;
     border-radius: 5px;
@@ -32,14 +43,14 @@ button {
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #1d509f;
-    color: whitesmoke;
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto-botao);
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
 }
 
 button:hover {
-    background-color: #1a355e;
+    background-color: var(--cor-primaria-hover);
 }
 
 button:active {
@@ -48,8 +59,8 @@ button:active {
 
 .barra-vida {
     height: 30px;
-    background-color: #4CAF50;
-    color: whitesmoke;
+    background-color: var(--cor-barra-vida);
+    color: var(--cor-texto-botao);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -60,6 +71,6 @@ button:active {
 .sprite {
     height: 100px;
     margin-bottom: 20px;
-    background-color: #ddd;
+    background-color: var(--cor-sprite);
     border-radius: 5px;
 }
