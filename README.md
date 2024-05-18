@@ -17,14 +17,14 @@ O dashboard exibe a vida atual do Herói e do Vilão, além de mostrar a sequên
 Requisitos:
 
 Backend:
-Node.js
-Azure SQL Database
+Node.js,
+Azure SQL Database.
 
 Frontend:
-Vue.js
-Html
-Java Script
-Css
+Vue.js,
+Html,
+Java Script,
+Css.
 
 Uso:
 
