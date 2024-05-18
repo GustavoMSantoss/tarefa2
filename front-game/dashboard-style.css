@@ -1,23 +1,34 @@
+:root {
+    --cor-fundo: #f0f0f0; /* Fundo claro */
+    --cor-gradiente: linear-gradient(to right, #1e3c72, #2a5298); /* Gradiente azul */
+    --cor-contorno: rgba(0, 0, 0, 0.1); /* Sombra suave */
+    --cor-fundo-personagem: #ffffff; /* Fundo branco para personagens */
+    --cor-texto: #333333; /* Texto escuro */
+    --cor-borda-personagem: #1e3c72; /* Borda azul */
+    --cor-titulo: #869fde; /* Título azul mais claro */
+    --cor-texto-vida: #27ae60; /* Verde para vida */
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: pink;
-}    
-
-
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+}
 
 .container {
     max-width: 800px;
     margin: 50px auto;
     padding: 20px;
-    background-image: linear-gradient(black, brown, green);
+    background-image: var(--cor-gradiente);
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px var(--cor-contorno);
 }
 
 h1 {
     text-align: center;
+    color: var(--cor-titulo);
 }
 
 .personagens {
@@ -30,16 +41,20 @@ h1 {
     flex: 1;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
+    box-shadow: 0 0 5px var(--cor-contorno);
+    background-color: var(--cor-fundo-personagem);
+    margin: 0 10px;
+    border: 1px solid var(--cor-borda-personagem);
 }
 
 h2 {
     font-size: 24px;
     margin-bottom: 10px;
+    color: var(--cor-titulo);
 }
 
 #heroiVida,
 #vilaoVida {
     font-size: 18px;
+    color: var(--cor-texto-vida);
 }
