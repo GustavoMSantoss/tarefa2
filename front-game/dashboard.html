@@ -26,41 +26,6 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-    <script>
-        new Vue({
-            el: '#app',
-            data: {
-                veiculo: '',
-                peca: '',
-                quilometragemAtual: '',
-                quilometragemTroca: ''
-            },
-            methods: {
-                async enviarInformacoes() {
-                    try {
-                        const response = await fetch('/atualizarInfo', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                veiculo: this.veiculo,
-                                peca: this.peca,
-                                quilometragemAtual: this.quilometragemAtual,
-                                quilometragemTroca: this.quilometragemTroca
-                            })
-                        });
-                        const result = await response.text();
-                        alert(result);
-                    } catch (error) {
-                        console.error('Erro ao enviar informações:', error);
-                    }
-                },
-                verHistorico() {
-                    window.location.href = '/game';
-                }
-            }
-        });
-    </script>
+    <script src="dashboard.js"></script>
 </body>
 </html>
