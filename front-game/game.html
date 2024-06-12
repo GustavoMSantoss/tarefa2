@@ -2,29 +2,50 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Jogo Veículo e Peça</title>
-    <link rel="stylesheet" href="game.css">
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Histórico de Manutenção</title>
+    <link rel="stylesheet" href="game-style.css">
 </head>
 <body>
-    <div id="app">
-        <h1>Histórico de Trocas</h1>
+    <div id="app" class="container">
+        <h1>Histórico de Manutenção</h1>
         <div class="historico">
-            <div><strong>Veículo:</strong> {{ veiculo }}</div>
-            <div><strong>Peça:</strong> {{ peca }}</div>
-            <div><strong>Quilometragem Atual:</strong> {{ quilometragemAtual }}</div>
-            <div><strong>Quilometragem de Troca:</strong> {{ quilometragemTroca }}</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Veículo</th>
+                        <th>Peça</th>
+                        <th>Quilometragem Atual</th>
+                        <th>Quilometragem de Troca</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="info in infos" :key="info.veiculo + info.peca">
+                        <td>{{ info.veiculo }}</td>
+                        <td>{{ info.peca }}</td>
+                        <td>{{ info.quilometragem_atual }}</td>
+                        <td>{{ info.quilometragem_troca }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <script>
-        const { createApp } = Vue;
-        createApp({
-            data() {
-                return {
-                    veiculo: '',
-                    peca: '',
-                    quilometragemAtual: '',
-                    quilometragemTroca: ''
-                };
+        new Vue({
+            el: '#app',
+            data: {
+                infos: []
             },
-            mounted() {
+            async mounted() {
+                try {
+                    const response = await fetch('/characters');
+                    const data = await response.json();
+                    this.infos = data;
+                } catch (error) {
+                    console.error('Erro ao buscar informações:', error);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
