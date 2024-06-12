@@ -36,4 +36,9 @@
             methods: {
                 async fetchCharacterData() {
                     try {
-                        const response = await fetch('/
+                        const response = await fetch('/characters');
+                        const data = await response.json();
+                        this.heroiVida = data.heroi.vida;
+                        this.vilaoVida = data.vilao.vida;
+                    } catch (error) {
+                        console.error('Erro
