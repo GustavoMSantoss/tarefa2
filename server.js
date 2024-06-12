@@ -20,7 +20,7 @@ const config = {
 app.use(cors());
 app.use(express.json());
 
-// Servir arquivos estáticos (como index.html)
+// Servir arquivos estáticos
 app.use(express.static(path.join(__dirname, 'front-game')));
 
 // Rota para atualizar a vida do herói e do vilão
@@ -52,11 +52,9 @@ app.get('/characters', async (req, res) => {
         await sql.connect(config);
         const request = new sql.Request();
 
-        // Consulta para obter os dados do herói
         const heroResult = await request.query("SELECT * FROM personagem WHERE nome = 'heroi'");
         const heroi = heroResult.recordset[0];
 
-        // Consulta para obter os dados do vilão
         const villainResult = await request.query("SELECT * FROM personagem WHERE nome = 'vilao'");
         const vilao = villainResult.recordset[0];
 
@@ -67,6 +65,7 @@ app.get('/characters', async (req, res) => {
     }
 });
 
+// Rota para inserir usuário
 app.post('/inserirUsuario', async (req, res) => {
     const { usuario, senha } = req.body;
 
@@ -89,13 +88,12 @@ app.post('/inserirUsuario', async (req, res) => {
     }
 });
 
+// Rota para validar usuário
 app.get('/validarUsuario', async (req, res) => {
     try {
         const { usuario, senha } = req.query;
         await sql.connect(config);
         const request = new sql.Request();
-
-        // Consulta para obter os dados do usuário
         const userResult = await request.query(`SELECT * FROM usuario WHERE usuario = '${usuario}' AND senha = '${senha}'`);
         const user = userResult.recordset[0];
         if (user === undefined) {
@@ -108,7 +106,7 @@ app.get('/validarUsuario', async (req, res) => {
     }
 });
 
-// Rota para servir o arquivo HTML principal
+// Rotas para servir os arquivos HTML
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'front-game/login.html'));
 });
