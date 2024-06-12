@@ -23,45 +23,42 @@ app.use(express.json());
 // Servir arquivos estáticos
 app.use(express.static(path.join(__dirname, 'front-game')));
 
-// Rota para atualizar a vida do herói e do vilão
-app.post('/atualizarVida', async (req, res) => {
-    const { vidaHeroi, vidaVilao } = req.body;
+// Rota para atualizar informações de veículo e peça
+app.post('/atualizarInfo', async (req, res) => {
+    const { veiculo, peca, quilometragemAtual, quilometragemTroca } = req.body;
 
     try {
         await sql.connect(config);
         const request = new sql.Request();
         await request.query(`
             MERGE INTO personagem AS target
-            USING (VALUES ('heroi', ${vidaHeroi}), ('vilao', ${vidaVilao})) AS source (nome, vida)
-            ON target.nome = source.nome
+            USING (VALUES ('${veiculo}', '${peca}', ${quilometragemAtual}, ${quilometragemTroca})) AS source (veiculo, peca, quilometragemAtual, quilometragemTroca)
+            ON target.veiculo = source.veiculo AND target.peca = source.peca
             WHEN MATCHED THEN
-                UPDATE SET vida = source.vida
+                UPDATE SET quilometragemAtual = source.quilometragemAtual, quilometragemTroca = source.quilometragemTroca
             WHEN NOT MATCHED THEN
-                INSERT (nome, vida) VALUES (source.nome, source.vida);
+                INSERT (veiculo, peca, quilometragemAtual, quilometragemTroca) VALUES (source.veiculo, source.peca, source.quilometragemAtual, source.quilometragemTroca);
         `);
-        res.status(200).send('Vida do herói e do vilão atualizada com sucesso.');
+        res.status(200).send('Informações do veículo e peça atualizadas com sucesso.');
     } catch (err) {
         console.error(err);
-        res.status(500).send('Erro ao atualizar a vida do herói e do vilão.');
+        res.status(500).send('Erro ao atualizar as informações.');
     }
 });
 
-// Rota para fornecer os dados do herói e do vilão
+// Rota para fornecer os dados do veículo e peça
 app.get('/characters', async (req, res) => {
     try {
         await sql.connect(config);
         const request = new sql.Request();
 
-        const heroResult = await request.query("SELECT * FROM personagem WHERE nome = 'heroi'");
-        const heroi = heroResult.recordset[0];
+        const result = await request.query("SELECT * FROM personagem");
+        const dados = result.recordset;
 
-        const villainResult = await request.query("SELECT * FROM personagem WHERE nome = 'vilao'");
-        const vilao = villainResult.recordset[0];
-
-        res.json({ heroi, vilao });
+        res.json(dados);
     } catch (error) {
-        console.error('Erro ao buscar dados do herói e do vilão:', error);
-        res.status(500).json({ error: 'Erro ao buscar dados do herói e do vilão.' });
+        console.error('Erro ao buscar dados do veículo e peça:', error);
+        res.status(500).json({ error: 'Erro ao buscar dados.' });
     }
 });
 
