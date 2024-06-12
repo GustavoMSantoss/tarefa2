@@ -12,8 +12,9 @@ body, html {
     background-size: cover; /* Ajuste para cobrir toda a tela */
     background-position: center;
 }
-body{}
+body{
      background-image: url('fundo.jpeg');
+}
 
 #app {
     display: flex;
