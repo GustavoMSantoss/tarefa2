@@ -3,62 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard - Manutenção de Peças Automotivas</title>
-    <link rel="stylesheet" href="dashboard-style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-    <div id="app" class="container">
-        <h1>Dashboard</h1>
-        <div class="formulario">
-            <label for="veiculo">Veículo:</label>
-            <input type="text" id="veiculo" v-model="veiculo">
-
-            <label for="peca">Peça:</label>
-            <input type="text" id="peca" v-model="peca">
-
-            <label for="quilometragemAtual">Quilometragem Atual:</label>
-            <input type="number" id="quilometragemAtual" v-model.number="quilometragemAtual">
-
-            <label for="quilometragemTroca">Quilometragem de Troca:</label>
-            <input type="number" id="quilometragemTroca" v-model.number="quilometragemTroca">
-
-            <button @click="enviarInformacoes">Enviar</button>
-            <button @click="verHistorico">Ver Histórico</button>
-        </div>
+    <div id="app">
+        <h1>Dashboard - Manutenção de Peças Automotivas</h1>
+        <form @submit.prevent="inserirManutencao">
+            <div>
+                <label for="veiculo">Veículo:</label>
+                <input type="text" id="veiculo" v-model="veiculo">
+            </div>
+            <div>
+                <label for="peca">Peça:</label>
+                <input type="text" id="peca" v-model="peca">
+            </div>
+            <div>
+                <label for="quilometragemAtual">Quilometragem Atual:</label>
+                <input type="number" id="quilometragemAtual" v-model="quilometragemAtual">
+            </div>
+            <div>
+                <label for="quilometragemTroca">Quilometragem para Troca:</label>
+                <input type="number" id="quilometragemTroca" v-model="quilometragemTroca">
+            </div>
+            <button type="submit">Inserir Manutenção</button>
+        </form>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <script>
         new Vue({
             el: '#app',
             data: {
                 veiculo: '',
                 peca: '',
-                quilometragemAtual: null,
-                quilometragemTroca: null
+                quilometragemAtual: '',
+                quilometragemTroca: ''
             },
             methods: {
-                async enviarInformacoes() {
-                    try {
-                        const response = await fetch('https://tarefa2-gustavomsantoss-projects.vercel.app/inserirManutencao', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                veiculo: this.veiculo,
-                                peca: this.peca,
-                                quilometragemAtual: this.quilometragemAtual,
-                                quilometragemTroca: this.quilometragemTroca
-                            })
-                        });
-                        const result = await response.text();
-                        alert(result);
-                    } catch (error) {
-                        console.error('Erro ao enviar informações:', error);
-                        alert('Erro ao enviar informações. Verifique o console para mais detalhes.');
-                    }
-                },
-                verHistorico() {
-                    window.location.href = 'https://tarefa2-gustavomsantoss-projects.vercel.app/game';
+                inserirManutencao() {
+                    axios.post('https://tarefa2-gustavomsantoss-projects.vercel.app/inserirManutencao', {
+                        veiculo: this.veiculo,
+                        peca: this.peca,
+                        quilometragemAtual: this.quilometragemAtual,
+                        quilometragemTroca: this.quilometragemTroca
+                    })
+                    .then(response => {
+                        alert(response.data);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert('Erro ao inserir manutenção.');
+                    });
                 }
             }
         });
