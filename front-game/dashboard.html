@@ -2,43 +2,64 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard - Jogo Herói e Vilão</title>
+    <title>Dashboard - Jogo Veículo e Peça</title>
     <link rel="stylesheet" href="dashboard-style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
     <div id="app" class="container">
         <h1>Dashboard</h1>
-        <div class="personagens">
-            <div class="personagem">
-                <h2>Herói</h2>
-                <div>Vida: {{ heroiVida }}%</div>
-            </div>
-            <div class="personagem">
-                <h2>Vilão</h2>
-                <div>Vida: {{ vilaoVida }}%</div>
-            </div>
+        <div class="formulario">
+            <label for="veiculo">Veículo:</label>
+            <input type="text" id="veiculo" v-model="veiculo">
+            <label for="peca">Peça:</label>
+            <input type="text" id="peca" v-model="peca">
+            <label for="quilometragemAtual">Quilometragem Atual:</label>
+            <input type="number" id="quilometragemAtual" v-model="quilometragemAtual">
+            <label for="quilometragemTroca">Quilometragem de Troca:</label>
+            <input type="number" id="quilometragemTroca" v-model="quilometragemTroca">
+            <button @click="atualizarInfo">Atualizar Informações</button>
         </div>
-        <button @click="irParaJogo">Iniciar Jogo</button>
+        <button @click="gerarHistorico">Gerar Histórico</button>
     </div>
     <script>
         const { createApp } = Vue;
         createApp({
             data() {
                 return {
-                    heroiVida: '',
-                    vilaoVida: ''
+                    veiculo: '',
+                    peca: '',
+                    quilometragemAtual: '',
+                    quilometragemTroca: ''
                 };
             },
-            mounted() {
-                this.fetchCharacterData();
-            },
             methods: {
-                async fetchCharacterData() {
+                async atualizarInfo() {
                     try {
-                        const response = await fetch('/characters');
-                        const data = await response.json();
-                        this.heroiVida = data.heroi.vida;
-                        this.vilaoVida = data.vilao.vida;
+                        const response = await fetch('/atualizarInfo', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                veiculo: this.veiculo,
+                                peca: this.peca,
+                                quilometragemAtual: this.quilometragemAtual,
+                                quilometragemTroca: this.quilometragemTroca
+                            })
+                        });
+                        if (response.ok) {
+                            alert('Informações atualizadas com sucesso!');
+                        }
                     } catch (error) {
-                        console.error('Erro
+                        console.error('Erro ao atualizar informações:', error);
+                    }
+                },
+                gerarHistorico() {
+                    window.location.href = `/game?veiculo=${this.veiculo}&peca=${this.peca}&quilometragemAtual=${this.quilometragemAtual}&quilometragemTroca=${this.quilometragemTroca}`;
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
