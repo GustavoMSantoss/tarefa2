@@ -29,6 +29,7 @@ body, html {
     font-size: larger;
     padding: 20px;
     border-radius: 10px;
+    margin: 20px; /* Espaçamento adicional para destacar a div */
 }
 
 .login-form input {
