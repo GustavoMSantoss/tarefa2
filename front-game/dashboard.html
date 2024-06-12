@@ -22,6 +22,7 @@
             <input type="number" id="quilometragemTroca" v-model="quilometragemTroca">
 
             <button @click="enviarInformacoes">Enviar</button>
+            <button @click="verHistorico">Ver Histórico</button>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
@@ -54,6 +55,9 @@
                     } catch (error) {
                         console.error('Erro ao enviar informações:', error);
                     }
+                },
+                verHistorico() {
+                    window.location.href = '/game';
                 }
             }
         });
