@@ -1,76 +1,44 @@
-:root {
-    --cor-fundo: #e1ecf1;
-    --cor-primaria: #1d509f;
-    --cor-primaria-hover: #1a355e;
-    --cor-texto-botao: whitesmoke;
-    --cor-barra-vida: #4CAF50;
-    --cor-fundo-personagem: white;
-    --cor-borda-personagem: #1d509f;
-    --cor-sprite: #ddd;
-}
-
-body, html {
-    height: 100%;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--cor-fundo);
+    padding: 0;
 }
 
-#app {
-    width: 80%;
-    max-width: 600px;
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
     text-align: center;
+    color: #333333;
 }
 
-.personagem {
-    background-color: var(--cor-fundo-personagem);
-    border: 2px solid var(--cor-borda-personagem);
-    margin-bottom: 20px;
-    padding: 10px;
-    border-radius: 5px;
-    width: 200px;
+.historico {
+    margin-top: 20px;
 }
 
-.acoes {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-button {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: var(--cor-primaria);
-    color: var(--cor-texto-botao);
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+thead {
+    background-color: #007bff;
+    color: #ffffff;
 }
 
-button:hover {
-    background-color: var(--cor-primaria-hover);
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
 }
 
-button:active {
-    transform: translateY(2px);
-}
-
-.barra-vida {
-    height: 30px;
-    background-color: var(--cor-barra-vida);
-    color: var(--cor-texto-botao);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-    margin-bottom: 20px;
-}
-
-.sprite {
-    height: 100px;
-    margin-bottom: 20px;
-    background-color: var(--cor-sprite);
-    border-radius: 5px;
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
