@@ -1,4 +1,3 @@
-
 body, html {
     margin: 0;
     padding: 0;
@@ -7,11 +6,11 @@ body, html {
     justify-content: center;
     align-items: center;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background-color: var(--cor-terciaria); /* Cor de fundo preto */
-    color: var(--cor-secundaria); /* Cor de texto azul */
+    background-color: #2c3e50; /* Cor de fundo preto */
+    color: #ffffff; /* Cor de texto branca */
     background-image: url('fundo.jpeg');
-
-
+    background-size: cover; /* Ajuste para cobrir toda a tela */
+    background-position: center;
 }
 
 #app {
@@ -50,8 +49,8 @@ button {
     padding: 8px;
     border: none;
     outline: none;
-    background-color: var(--cor-secundaria); /* Cor de fundo do botão azul */
-    color: var(--cor-botao-texto);
+    background-color: #3498db; /* Cor de fundo do botão azul */
+    color: #ffffff; /* Cor do texto branco */
     border-radius: 5px;
     cursor: pointer;
     margin-bottom: 5px;
@@ -59,11 +58,11 @@ button {
 }
 
 button:hover {
-    background-color: var(--cor-botao-hover);
+    background-color: #2980b9; /* Cor de fundo do botão azul mais escuro no hover */
 }
 
 button:active {
-    background-color: var(--cor-botao-ativo);
+    background-color: #2c3e50; /* Cor de fundo do botão azul mais escuro no clique */
     transform: translateY(3px);
 }
 
@@ -83,5 +82,5 @@ button:active {
 
 .mensagem-cadastro.mostrar {
     display: flex;
-    color: var(--cor-secundaria);
+    color: #ffffff; /* Cor do texto branco */
 }
