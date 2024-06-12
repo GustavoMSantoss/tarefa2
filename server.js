@@ -116,11 +116,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/game', (req, res) => {
-    res.sendFile(path.join(__dirname, 'front-game/game.html'));
+    res.sendFile(path.join(__dirname, 'front-game/dashboard.html'));
 });
 
 app.get('/dashboard', (req, res) => {
-    res.sendFile(path.join(__dirname, 'front-game/dashboard.html'));
+    res.sendFile(path.join(__dirname, 'front-game/game.html'));
 });
 
 // Iniciar o servidor
