@@ -13,7 +13,7 @@ const config = {
     server: 'morerao-server.database.windows.net',
     database: 'heroivilao',
     options: {
-        encrypt: true // Dependendo da configuração do seu servidor SQL Server
+        encrypt: true
     }
 };
 
@@ -35,7 +35,7 @@ app.post('/inserirManutencao', async (req, res) => {
         await sql.connect(config);
         const request = new sql.Request();
         await request.query(`
-            INSERT INTO manutencao (veiculo, peca, quilometragemAtual, quilometragemTroca)
+            INSERT INTO personagem (nome, peca, quilometragemAtual, quilometragemTroca)
             VALUES ('${veiculo}', '${peca}', ${quilometragemAtual}, ${quilometragemTroca});
         `);
         res.status(200).send('Informações de manutenção inseridas com sucesso.');
@@ -45,24 +45,16 @@ app.post('/inserirManutencao', async (req, res) => {
     }
 });
 
-// Rota para fornecer os dados do herói e do vilão
+// Rota para fornecer os dados do veículo e da peça
 app.get('/characters', async (req, res) => {
     try {
         await sql.connect(config);
         const request = new sql.Request();
-
-        // Consulta para obter os dados do herói
-        const heroResult = await request.query("SELECT * FROM personagem WHERE nome = 'heroi'");
-        const heroi = heroResult.recordset[0];
-
-        // Consulta para obter os dados do vilão
-        const villainResult = await request.query("SELECT * FROM personagem WHERE nome = 'vilao'");
-        const vilao = villainResult.recordset[0];
-
-        res.json({ heroi, vilao });
+        const result = await request.query("SELECT * FROM personagem");
+        res.json(result.recordset);
     } catch (error) {
-        console.error('Erro ao buscar dados do herói e do vilão:', error);
-        res.status(500).json({ error: 'Erro ao buscar dados do herói e do vilão.' });
+        console.error('Erro ao buscar dados:', error);
+        res.status(500).json({ error: 'Erro ao buscar dados.' });
     }
 });
 
@@ -91,20 +83,21 @@ app.post('/inserirUsuario', async (req, res) => {
 
 // Rota para validar um usuário
 app.get('/validarUsuario', async (req, res) => {
+    const { usuario, senha } = req.query;
+
     try {
-        const { usuario, senha } = req.query;
         await sql.connect(config);
         const request = new sql.Request();
-
-        // Consulta para obter os dados do usuário
-        const userResult = await request.query(`SELECT * FROM usuario WHERE usuario = '${usuario}' AND senha = '${senha}'`);
-        const user = userResult.recordset[0];
+        const result = await request.query(`
+            SELECT * FROM usuario WHERE usuario = '${usuario}' AND senha = '${senha}'
+        `);
+        const user = result.recordset[0];
         if (!user) {
             return res.status(404).json({ error: 'Usuario não cadastrado' });
         }
-
         res.json({ usuario, senha });
-    } catch (error) {
+    } catch (err) {
+        console.error(err);
         res.status(500).json({ error: 'Erro ao buscar dados do usuario.' });
     }
 });
