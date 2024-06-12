@@ -17,9 +17,9 @@ const config = {
     }
 };
 
-// Configurar CORS para permitir requisições de 'https://tarefadatabase.vercel.app'
+// Configurar CORS para permitir requisições do domínio fornecido
 app.use(cors({
-    origin: 'https://tarefadatabase.vercel.app'
+    origin: 'https://tarefa2-gustavomsantoss-projects.vercel.app'
 }));
 
 app.use(express.json());
