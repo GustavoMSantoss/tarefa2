@@ -16,16 +16,53 @@
             <input type="text" id="peca" v-model="peca">
 
             <label for="quilometragemAtual">Quilometragem Atual:</label>
-            <input type="number" id="quilometragemAtual" v-model="quilometragemAtual">
+            <input type="number" id="quilometragemAtual" v-model.number="quilometragemAtual">
 
             <label for="quilometragemTroca">Quilometragem de Troca:</label>
-            <input type="number" id="quilometragemTroca" v-model="quilometragemTroca">
+            <input type="number" id="quilometragemTroca" v-model.number="quilometragemTroca">
 
             <button @click="enviarInformacoes">Enviar</button>
             <button @click="verHistorico">Ver Histórico</button>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-    <script src="dashboard.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    veiculo: '',
+                    peca: '',
+                    quilometragemAtual: '',
+                    quilometragemTroca: ''
+                };        
+            },
+            methods: {
+                async enviarInformacoes() {
+                    try {
+                        const response = await fetch('/atualizarInfo', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                veiculo: this.veiculo,
+                                peca: this.peca,
+                                quilometragemAtual: this.quilometragemAtual,
+                                quilometragemTroca: this.quilometragemTroca
+                            })
+                        });
+                        const result = await response.text();
+                        alert(result);
+                    } catch (error) {
+                        console.error('Erro ao enviar informações:', error);
+                    }
+                },
+                verHistorico() {
+                    window.location.href = '/game';
+                }
+            }
+        });
+    </script>
 </body>
 </html>
