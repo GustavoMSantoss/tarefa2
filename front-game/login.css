@@ -14,6 +14,7 @@ body, html {
     justify-content: center;
     align-items: center; 
     background-color: var(--cor-primaria);
+    background-image: url('fundo');
 }
 
 #app {
