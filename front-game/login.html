@@ -11,9 +11,9 @@
     <div id="app">
         <div class="login-form">
             <label>Nome do usuário</label>
-            <input type="text" id="nomedousuario" v-model="nomedousuario">
+            <input type="text" v-model="nomedousuario">
             <label>Senha</label>
-            <input type="password" id="password" v-model="password">
+            <input type="password" v-model="password">
             <button @click="autenticar">Login</button>
             <button @click="exibirFormulario = true">Sing-In</button>
         </div>
@@ -23,9 +23,9 @@
         <div v-if="exibirFormulario" class="formulario">
             <h2>Cadastro</h2>
             <label for="usuario">Usuario:</label>
-            <input type="text" id="usuario" v-model="novoUsuario.usuario">
+            <input type="text" v-model="novoUsuario.usuario">
             <label for="senhaCadastro">Senha:</label>
-            <input type="password" id="senha" v-model="novoUsuario.senha">
+            <input type="password" v-model="novoUsuario.senha">
             <button @click="cadastrar">Cadastrar</button>
         </div>
         <div v-if="cadastroRealizado" class="mensagem-cadastro">
