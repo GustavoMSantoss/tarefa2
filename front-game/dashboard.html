@@ -38,7 +38,7 @@
             methods: {
                 async enviarInformacoes() {
                     try {
-                        const response = await fetch('/inserirManutencao', {
+                        const response = await fetch('https://tarefa2-gustavomsantoss-projects.vercel.app/inserirManutencao', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -58,7 +58,7 @@
                     }
                 },
                 verHistorico() {
-                    window.location.href = '/game';
+                    window.location.href = 'https://tarefa2-gustavomsantoss-projects.vercel.app/game';
                 }
             }
         });
