@@ -2,9 +2,8 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard - Jogo Veículo e Peça</title>
+    <title>Dashboard - Manutenção de Peças Automotivas</title>
     <link rel="stylesheet" href="dashboard-style.css">
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
     <div id="app" class="container">
@@ -12,29 +11,31 @@
         <div class="formulario">
             <label for="veiculo">Veículo:</label>
             <input type="text" id="veiculo" v-model="veiculo">
+
             <label for="peca">Peça:</label>
             <input type="text" id="peca" v-model="peca">
+
             <label for="quilometragemAtual">Quilometragem Atual:</label>
             <input type="number" id="quilometragemAtual" v-model="quilometragemAtual">
+
             <label for="quilometragemTroca">Quilometragem de Troca:</label>
             <input type="number" id="quilometragemTroca" v-model="quilometragemTroca">
-            <button @click="atualizarInfo">Atualizar Informações</button>
+
+            <button @click="enviarInformacoes">Enviar</button>
         </div>
-        <button @click="gerarHistorico">Gerar Histórico</button>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <script>
-        const { createApp } = Vue;
-        createApp({
-            data() {
-                return {
-                    veiculo: '',
-                    peca: '',
-                    quilometragemAtual: '',
-                    quilometragemTroca: ''
-                };
+        new Vue({
+            el: '#app',
+            data: {
+                veiculo: '',
+                peca: '',
+                quilometragemAtual: '',
+                quilometragemTroca: ''
             },
             methods: {
-                async atualizarInfo() {
+                async enviarInformacoes() {
                     try {
                         const response = await fetch('/atualizarInfo', {
                             method: 'POST',
@@ -48,18 +49,14 @@
                                 quilometragemTroca: this.quilometragemTroca
                             })
                         });
-                        if (response.ok) {
-                            alert('Informações atualizadas com sucesso!');
-                        }
+                        const result = await response.text();
+                        alert(result);
                     } catch (error) {
-                        console.error('Erro ao atualizar informações:', error);
+                        console.error('Erro ao enviar informações:', error);
                     }
-                },
-                gerarHistorico() {
-                    window.location.href = `/game?veiculo=${this.veiculo}&peca=${this.peca}&quilometragemAtual=${this.quilometragemAtual}&quilometragemTroca=${this.quilometragemTroca}`;
                 }
             }
-        }).mount('#app');
+        });
     </script>
 </body>
 </html>
