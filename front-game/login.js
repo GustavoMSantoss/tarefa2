@@ -1,4 +1,4 @@
-const API_URL = 'tarefa2-azure.vercel.app';
+const API_URL = 'https://tarefa2-azure.vercel.app';
 
 const app = Vue.createApp({
     data() {
@@ -19,11 +19,8 @@ const app = Vue.createApp({
             this.exibirFormulario = !this.exibirFormulario;
         },
         cadastrar() {
-
             this.cadastrarUsuarioBD(this.novoUsuario.usuario, this.novoUsuario.senha);
             this.cadastroRealizado = true;
-            
-            
         },
         async cadastrarUsuarioBD(usuario, senha) {
             try {
@@ -53,7 +50,7 @@ const app = Vue.createApp({
                 if (!response.ok) {
                     this.exibirErro = true;
                 } else {
-                    window.open('game.html', '_blank');
+                    window.open('dashboard.html', '_blank');
                 }
                 console.log('Usuario validado com sucesso.');
             } catch (error) {
