@@ -15,6 +15,15 @@ body, html {
     align-items: center; 
     background-color: black; 
 }
+   .gradient {
+            background-image: url('./fundo.jpeg'); /* Ajuste no caminho aqui */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
 
 
