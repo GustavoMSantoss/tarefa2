@@ -15,6 +15,10 @@ body, html {
     align-items: center; 
   
 }
+body {
+    background-image: url('fundo.jpeg');
+}
+
 
 #app {
     background: #ffffff;
