@@ -13,7 +13,7 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center; 
-    background-image: url('./fundo.jpeg'); 
+    background-color: black; 
 }
 
 
