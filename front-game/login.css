@@ -13,8 +13,9 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center; 
-  
+    background-image: url('./fundo.jpeg'); 
 }
+
 body {
     background-image: url('fundo.jpeg');
 }
