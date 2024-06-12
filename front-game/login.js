@@ -1,4 +1,4 @@
-const API_URL = 'https://tarefadatabase.vercel.app';
+const API_URL = 'tarefa2-azure.vercel.app';
 
 const app = Vue.createApp({
     data() {
