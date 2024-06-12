@@ -16,9 +16,7 @@ body, html {
     background-image: url('./fundo.jpeg'); 
 }
 
-body {
-    background-image: url('fundo.jpeg');
-}
+
 
 
 #app {
