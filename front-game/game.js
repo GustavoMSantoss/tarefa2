@@ -1,5 +1,5 @@
 const { createApp } = Vue;
-const API_URL = 'tarefa2-azure.vercel.app/';
+const API_URL = 'https://tarefa2-azure.vercel.app'; // URL completo da sua API
 
 createApp({
     data() {
@@ -9,14 +9,14 @@ createApp({
         };        
     },
     methods: {
-        atacar(isHeroi) {
+        async atacar(isHeroi) {
             if (isHeroi) {
                 this.vilao.vida -= 10;
-                this.atualizarVidaNoBancoDeDados(this.heroi.vida, this.vilao.vida);
+                await this.atualizarVidaNoBancoDeDados(this.heroi.vida, this.vilao.vida);
                 this.acaoVilao();
             } else {
                 this.heroi.vida -= 20;
-                this.atualizarVidaNoBancoDeDados(this.vilao.vida, this.heroi.vida);
+                await this.atualizarVidaNoBancoDeDados(this.vilao.vida, this.heroi.vida);
             }
         },
         async atualizarVidaNoBancoDeDados(vidaHeroi, vidaVilao) {
@@ -36,22 +36,16 @@ createApp({
                 console.error('Erro ao atualizar a vida no banco de dados:', error);
             }
         },
-        defender(isHeroi) {
-            this.acaoVilao();
-        },
-        usarPocao(isHeroi) {
+        async usarPocao(isHeroi) {
             if (isHeroi) {
                 this.vilao.vida += 10;
-                this.atualizarVidaNoBancoDeDados(this.heroi.vida, this.vilao.vida);
+                await this.atualizarVidaNoBancoDeDados(this.heroi.vida, this.vilao.vida);
                 this.acaoVilao();
             } else {
                 this.heroi.vida += 10;
-                this.atualizarVidaNoBancoDeDados(this.vilao.vida, this.heroi.vida);
+                await this.atualizarVidaNoBancoDeDados(this.vilao.vida, this.heroi.vida);
+                this.acaoVilao();
             }
-            this.acaoVilao();
-        },
-        correr(isHeroi) {
-            this.acaoVilao();
         },
         acaoVilao() {
             const acoes = ['atacar', 'defender', 'usarPocao', 'correr'];
