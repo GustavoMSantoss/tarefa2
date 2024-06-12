@@ -32,14 +32,14 @@ app.post('/atualizarInfo', async (req, res) => {
         const request = new sql.Request();
         await request.query(`
             MERGE INTO personagem AS target
-            USING (VALUES ('${veiculo}', '${peca}', ${quilometragemAtual}, ${quilometragemTroca})) AS source (veiculo, peca, quilometragemAtual, quilometragemTroca)
+            USING (VALUES ('${veiculo}', '${peca}', ${quilometragemAtual}, ${quilometragemTroca})) AS source (veiculo, peca, quilometragem_atual, quilometragem_troca)
             ON target.veiculo = source.veiculo AND target.peca = source.peca
             WHEN MATCHED THEN
-                UPDATE SET quilometragemAtual = source.quilometragemAtual, quilometragemTroca = source.quilometragemTroca
+                UPDATE SET quilometragem_atual = source.quilometragem_atual, quilometragem_troca = source.quilometragem_troca
             WHEN NOT MATCHED THEN
-                INSERT (veiculo, peca, quilometragemAtual, quilometragemTroca) VALUES (source.veiculo, source.peca, source.quilometragemAtual, source.quilometragemTroca);
+                INSERT (veiculo, peca, quilometragem_atual, quilometragem_troca) VALUES (source.veiculo, source.peca, source.quilometragem_atual, source.quilometragem_troca);
         `);
-        res.status(200).send('Informações do veículo e peça atualizadas com sucesso.');
+        res.status(200).send('Informações atualizadas com sucesso.');
     } catch (err) {
         console.error(err);
         res.status(500).send('Erro ao atualizar as informações.');
