@@ -124,6 +124,29 @@ app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'front-game/dashboard.html'));
 });
 
+// Rota para redirecionar para o dashboard após login
+app.post('/login', async (req, res) => {
+    const { usuario, senha } = req.body;
+
+    try {
+        await sql.connect(config);
+        const request = new sql.Request();
+
+        // Verifica se o usuário existe
+        const userResult = await request.query(`SELECT * FROM usuario WHERE usuario = '${usuario}' AND senha = '${senha}'`);
+        const user = userResult.recordset[0];
+        if (!user) {
+            return res.status(404).json({ error: 'Usuário não cadastrado' });
+        }
+
+        // Redireciona para o dashboard
+        res.redirect('/dashboard');
+    } catch (error) {
+        console.error('Erro ao buscar dados do usuário:', error);
+        res.status(500).json({ error: 'Erro ao buscar dados do usuário.' });
+    }
+});
+
 // Iniciar o servidor
 app.listen(PORT, () => {
     console.log(`Servidor Express rodando na porta ${PORT}`);
