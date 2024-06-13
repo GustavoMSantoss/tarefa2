@@ -1,5 +1,5 @@
 const { createApp } = Vue;
-const API_URL = 'https://tarefa2-azure.vercel.app'; // URL completo da sua API
+const API_URL = 'https://tarefa2-gustavomsantoss-projects.vercel.app'; // URL completo da sua API
 
 createApp({
     data() {
