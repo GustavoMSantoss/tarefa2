@@ -21,15 +21,36 @@
             </div>
             <div>
                 <label for="quilometragemAtual">Quilometragem Atual:</label>
-                <input type="number" id="quilometragemAtual" v-model="quilometragemAtual">
+                <input type="number" id="quilometragemAtual" v-model.number="quilometragemAtual">
             </div>
             <div>
                 <label for="quilometragemTroca">Quilometragem para Troca:</label>
-                <input type="number" id="quilometragemTroca" v-model="quilometragemTroca">
+                <input type="number" id="quilometragemTroca" v-model.number="quilometragemTroca">
             </div>
             <button type="submit">Inserir Manutenção</button>
         </form>
+
+        <h2>Histórico de Manutenção</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Veículo</th>
+                    <th>Peça</th>
+                    <th>Quilometragem Atual</th>
+                    <th>Quilometragem para Troca</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="info in infos" :key="info.veiculo + info.peca">
+                    <td>{{ info.veiculo }}</td>
+                    <td>{{ info.peca }}</td>
+                    <td>{{ info.quilometragem_atual }}</td>
+                    <td>{{ info.quilometragem_troca }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+
     <script>
         new Vue({
             el: '#app',
@@ -37,24 +58,36 @@
                 veiculo: '',
                 peca: '',
                 quilometragemAtual: '',
-                quilometragemTroca: ''
+                quilometragemTroca: '',
+                infos: []
             },
             methods: {
-                inserirManutencao() {
-                    axios.post('https://tarefa2-gustavomsantoss-projects.vercel.app/inserirManutencao', {
-                        veiculo: this.veiculo,
-                        peca: this.peca,
-                        quilometragemAtual: this.quilometragemAtual,
-                        quilometragemTroca: this.quilometragemTroca
-                    })
-                    .then(response => {
+                async inserirManutencao() {
+                    try {
+                        const response = await axios.post('https://tarefa2-gustavomsantoss-projects.vercel.app/inserirManutencao', {
+                            veiculo: this.veiculo,
+                            peca: this.peca,
+                            quilometragem_atual: this.quilometragemAtual,
+                            quilometragem_troca: this.quilometragemTroca
+                        });
                         alert(response.data);
-                    })
-                    .catch(error => {
+                        this.buscarManutencoes(); // Atualiza a lista após inserção
+                    } catch (error) {
                         console.error(error);
                         alert('Erro ao inserir manutenção.');
-                    });
+                    }
+                },
+                async buscarManutencoes() {
+                    try {
+                        const response = await axios.get('https://tarefa2-gustavomsantoss-projects.vercel.app/characters');
+                        this.infos = response.data;
+                    } catch (error) {
+                        console.error('Erro ao buscar informações:', error);
+                    }
                 }
+            },
+            mounted() {
+                this.buscarManutencoes();
             }
         });
     </script>
