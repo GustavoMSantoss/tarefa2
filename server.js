@@ -83,7 +83,7 @@ app.post('/inserirUsuario', async (req, res) => {
             usuario,
             senha
         });
-        res.status(200).send('Usuario cadastrado com sucesso.');
+        res.status(200).send('Usuário cadastrado com sucesso.');
     } catch (err) {
         console.error(err);
         res.status(500).send('Erro ao inserir usuário.');
@@ -91,8 +91,8 @@ app.post('/inserirUsuario', async (req, res) => {
 });
 
 // Rota para validar um usuário
-app.get('/validarUsuario', async (req, res) => {
-    const { usuario, senha } = req.query;
+app.post('/validarUsuario', async (req, res) => {
+    const { usuario, senha } = req.body;
 
     try {
         await sql.connect(config);
@@ -107,7 +107,7 @@ app.get('/validarUsuario', async (req, res) => {
         if (!user) {
             return res.status(404).json({ error: 'Usuário não cadastrado' });
         }
-        res.json({ usuario, senha });
+        res.status(200).send('Login bem sucedido.');
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Erro ao buscar dados do usuário.' });
