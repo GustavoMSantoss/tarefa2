@@ -35,12 +35,12 @@ app.post('/inserirManutencao', async (req, res) => {
         await sql.connect(config);
         const request = new sql.Request();
         await request.query(`
-            INSERT INTO personagem (nome, peca, quilometragemAtual, quilometragemTroca)
+            INSERT INTO personagem (veiculo, peca, quilometragemAtual, quilometragemTroca)
             VALUES ('${veiculo}', '${peca}', ${quilometragemAtual}, ${quilometragemTroca});
         `);
         res.status(200).send('Informações de manutenção inseridas com sucesso.');
     } catch (err) {
-        console.error(err);
+        console.error('Erro ao inserir informações de manutenção:', err);
         res.status(500).send('Erro ao inserir informações de manutenção.');
     }
 });
@@ -70,52 +70,4 @@ app.post('/inserirUsuario', async (req, res) => {
             USING (VALUES ('${usuario}', '${senha}')) AS source (usuario, senha)
             ON target.usuario = source.usuario
             WHEN MATCHED THEN
-                UPDATE SET senha = source.senha
-            WHEN NOT MATCHED THEN
-                INSERT (usuario, senha) VALUES (source.usuario, source.senha);
-        `);
-        res.status(200).send('Usuario cadastrado com sucesso.');
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Erro ao inserir usuario.');
-    }
-});
-
-// Rota para validar um usuário
-app.get('/validarUsuario', async (req, res) => {
-    const { usuario, senha } = req.query;
-
-    try {
-        await sql.connect(config);
-        const request = new sql.Request();
-        const result = await request.query(`
-            SELECT * FROM usuario WHERE usuario = '${usuario}' AND senha = '${senha}'
-        `);
-        const user = result.recordset[0];
-        if (!user) {
-            return res.status(404).json({ error: 'Usuario não cadastrado' });
-        }
-        res.json({ usuario, senha });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Erro ao buscar dados do usuario.' });
-    }
-});
-
-// Rotas para servir os arquivos HTML principais
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'front-game/login.html'));
-});
-
-app.get('/dashboard', (req, res) => {
-    res.sendFile(path.join(__dirname, 'front-game/dashboard.html'));
-});
-
-app.get('/game', (req, res) => {
-    res.sendFile(path.join(__dirname, 'front-game/game.html'));
-});
-
-// Iniciar o servidor
-app.listen(PORT, () => {
-    console.log(`Servidor Express rodando na porta ${PORT}`);
-});
+                UPDATE SET senha = sour
