@@ -4,7 +4,7 @@ const sql = require('mssql');
 const cors = require('cors');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 // Configuração do banco de dados
 const config = {
@@ -13,8 +13,7 @@ const config = {
     server: 'morerao-server.database.windows.net',
     database: 'heroivilao',
     options: {
-        encrypt: true,
-        enableArithAbort: true
+        encrypt: true
     }
 };
 
@@ -37,13 +36,8 @@ app.post('/inserirManutencao', async (req, res) => {
         const request = new sql.Request();
         await request.query(`
             INSERT INTO personagem (veiculo, peca, quilometragem_atual, quilometragem_troca)
-            VALUES (@veiculo, @peca, @quilometragemAtual, @quilometragemTroca);
-        `, {
-            veiculo,
-            peca,
-            quilometragemAtual,
-            quilometragemTroca
-        });
+            VALUES ('${veiculo}', '${peca}', ${quilometragemAtual}, ${quilometragemTroca});
+        `);
         res.status(200).send('Informações de manutenção inseridas com sucesso.');
     } catch (err) {
         console.error(err);
@@ -56,7 +50,7 @@ app.get('/characters', async (req, res) => {
     try {
         await sql.connect(config);
         const request = new sql.Request();
-        const result = await request.query("SELECT veiculo, peca, quilometragem_atual, quilometragem_troca FROM personagem");
+        const result = await request.query("SELECT * FROM personagem");
         res.json(result.recordset);
     } catch (error) {
         console.error('Erro ao buscar dados:', error);
@@ -73,16 +67,13 @@ app.post('/inserirUsuario', async (req, res) => {
         const request = new sql.Request();
         await request.query(`
             MERGE INTO usuario AS target
-            USING (VALUES (@usuario, @senha)) AS source (usuario, senha)
+            USING (VALUES ('${usuario}', '${senha}')) AS source (usuario, senha)
             ON target.usuario = source.usuario
             WHEN MATCHED THEN
                 UPDATE SET senha = source.senha
             WHEN NOT MATCHED THEN
                 INSERT (usuario, senha) VALUES (source.usuario, source.senha);
-        `, {
-            usuario,
-            senha
-        });
+        `);
         res.status(200).send('Usuario cadastrado com sucesso.');
     } catch (err) {
         console.error(err);
@@ -98,11 +89,8 @@ app.get('/validarUsuario', async (req, res) => {
         await sql.connect(config);
         const request = new sql.Request();
         const result = await request.query(`
-            SELECT * FROM usuario WHERE usuario = @usuario AND senha = @senha
-        `, {
-            usuario,
-            senha
-        });
+            SELECT * FROM usuario WHERE usuario = '${usuario}' AND senha = '${senha}'
+        `);
         const user = result.recordset[0];
         if (!user) {
             return res.status(404).json({ error: 'Usuário não cadastrado' });
