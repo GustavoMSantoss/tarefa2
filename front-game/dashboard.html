@@ -67,8 +67,8 @@
                         const response = await axios.post('https://tarefa2-gustavomsantoss-projects.vercel.app/inserirManutencao', {
                             veiculo: this.veiculo,
                             peca: this.peca,
-                            quilometragem_atual: this.quilometragemAtual,
-                            quilometragem_troca: this.quilometragemTroca
+                            quilometragemAtual: this.quilometragemAtual,
+                            quilometragemTroca: this.quilometragemTroca
                         });
                         alert(response.data);
                         this.buscarManutencoes(); // Atualiza a lista após inserção
