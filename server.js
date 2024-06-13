@@ -30,18 +30,17 @@ app.use(express.static(path.join(__dirname, 'front-game')));
 // Rota para inserir uma nova manutenção
 app.post('/inserirManutencao', async (req, res) => {
     const { veiculo, peca, quilometragemAtual, quilometragemTroca } = req.body;
-    console.log('Dados recebidos:', veiculo, peca, quilometragemAtual, quilometragemTroca);
 
     try {
         await sql.connect(config);
         const request = new sql.Request();
         await request.query(`
-            INSERT INTO personagem (nome, peca, quilometragemAtual, quilometragemTroca)
+            INSERT INTO personagem (veiculo, peca, quilometragem_atual, quilometragem_troca)
             VALUES ('${veiculo}', '${peca}', ${quilometragemAtual}, ${quilometragemTroca});
         `);
         res.status(200).send('Informações de manutenção inseridas com sucesso.');
     } catch (err) {
-        console.error('Erro ao inserir informações de manutenção:', err);
+        console.error(err);
         res.status(500).send('Erro ao inserir informações de manutenção.');
     }
 });
@@ -78,7 +77,7 @@ app.post('/inserirUsuario', async (req, res) => {
         res.status(200).send('Usuario cadastrado com sucesso.');
     } catch (err) {
         console.error(err);
-        res.status(500).send('Erro ao inserir usuario.');
+        res.status(500).send('Erro ao inserir usuário.');
     }
 });
 
@@ -94,12 +93,12 @@ app.get('/validarUsuario', async (req, res) => {
         `);
         const user = result.recordset[0];
         if (!user) {
-            return res.status(404).json({ error: 'Usuario não cadastrado' });
+            return res.status(404).json({ error: 'Usuário não cadastrado' });
         }
         res.json({ usuario, senha });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'Erro ao buscar dados do usuario.' });
+        res.status(500).json({ error: 'Erro ao buscar dados do usuário.' });
     }
 });
 
